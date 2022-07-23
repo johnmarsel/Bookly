@@ -1,15 +1,12 @@
-package com.johnmarsel.bookly
+package com.johnmarsel.bookly.mainpage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,9 +17,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.johnmarsel.bookly.*
 import com.johnmarsel.bookly.model.BestSellerItem
 import com.johnmarsel.bookly.databinding.BestSellerItemBinding
 import com.johnmarsel.bookly.databinding.FragmentMainBinding
+import com.johnmarsel.bookly.detailpage.BOOK_ID
+import com.johnmarsel.bookly.util.Resource
+import com.johnmarsel.bookly.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
 
@@ -116,7 +117,9 @@ class MainFragment : Fragment() {
         }
     }
 
-    private inner class BestSellerAdapter: ListAdapter<BestSellerItem, BestSellerHolder>(DiffCallback()) {
+    private inner class BestSellerAdapter: ListAdapter<BestSellerItem, BestSellerHolder>(
+        DiffCallback()
+    ) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BestSellerHolder {
             val binding = BestSellerItemBinding.inflate(

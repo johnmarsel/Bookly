@@ -1,4 +1,4 @@
-package com.johnmarsel.bookly
+package com.johnmarsel.bookly.detailpage
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.*
+import com.johnmarsel.bookly.R
 import com.johnmarsel.bookly.databinding.FragmentDetailBinding
 import com.johnmarsel.bookly.databinding.RecItemBinding
 import com.johnmarsel.bookly.model.BestSellerItem
 import com.johnmarsel.bookly.model.SimilarItem
+import com.johnmarsel.bookly.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 const val BOOK_ID = "book_id"

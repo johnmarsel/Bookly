@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.johnmarsel.bookly.databinding.CarouselItemBinding
 import com.johnmarsel.bookly.model.CarouselItem
+import com.johnmarsel.bookly.util.loadImage
 
 class CarouselAdapter: ListAdapter<CarouselItem, CarouselAdapter.CarouselHolder>(DiffCallback()) {
 

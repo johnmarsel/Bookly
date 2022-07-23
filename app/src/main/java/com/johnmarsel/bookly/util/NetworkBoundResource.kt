@@ -2,6 +2,7 @@ package com.johnmarsel.bookly
 
 import android.util.Log
 import androidx.lifecycle.asLiveData
+import com.johnmarsel.bookly.util.Resource
 import kotlinx.coroutines.flow.*
 
 inline fun <ResultType, RequestType> networkBoundResource(

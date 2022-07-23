@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.johnmarsel.bookly.MainFragment"
+        android:name="com.johnmarsel.bookly.mainpage.MainFragment"
         android:label=""
         tools:layout="@layout/fragment_main" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.johnmarsel.bookly.DetailFragment"
+        android:name="com.johnmarsel.bookly.detailpage.DetailFragment"
         android:label=""
         tools:layout="@layout/fragment_detail" />
 </navigation>

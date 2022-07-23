@@ -7,6 +7,7 @@ import com.johnmarsel.bookly.database.BookDatabase
 import com.johnmarsel.bookly.model.BestSellerItem
 import com.johnmarsel.bookly.model.CarouselItem
 import com.johnmarsel.bookly.model.SimilarItem
+import com.johnmarsel.bookly.util.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

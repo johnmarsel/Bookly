@@ -1,6 +1,7 @@
-package com.johnmarsel.bookly
+package com.johnmarsel.bookly.detailpage
 
 import androidx.lifecycle.*
+import com.johnmarsel.bookly.Repository
 import com.johnmarsel.bookly.model.BestSellerItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
