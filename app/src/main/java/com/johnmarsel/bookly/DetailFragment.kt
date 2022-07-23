@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,22 +16,24 @@ import com.johnmarsel.bookly.databinding.FragmentDetailBinding
 import com.johnmarsel.bookly.databinding.RecItemBinding
 import com.johnmarsel.bookly.model.BestSellerItem
 import com.johnmarsel.bookly.model.SimilarItem
+import dagger.hilt.android.AndroidEntryPoint
 
 const val BOOK_ID = "book_id"
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
-    private lateinit var viewModel: DetailViewModel
     private var bookId: Int? = null
     private var adapter: recAdapter = recAdapter()
+
+    private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             bookId = it.getInt(BOOK_ID)
         }
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         bookId?.let { viewModel.loadBestSeller(it) }
     }
 

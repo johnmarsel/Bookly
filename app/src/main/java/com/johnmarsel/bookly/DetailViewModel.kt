@@ -2,12 +2,13 @@ package com.johnmarsel.bookly
 
 import androidx.lifecycle.*
 import com.johnmarsel.bookly.model.BestSellerItem
-import com.johnmarsel.bookly.model.SimilarItem
-import java.util.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class DetailViewModel: ViewModel() {
-
-    private val repository = Repository.get()
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val repository: Repository,
+) : ViewModel() {
 
     val similarBooks = repository.getSimilar().asLiveData()
 

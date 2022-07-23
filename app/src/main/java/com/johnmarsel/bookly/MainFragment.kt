@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -22,19 +23,17 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import com.johnmarsel.bookly.model.BestSellerItem
 import com.johnmarsel.bookly.databinding.BestSellerItemBinding
 import com.johnmarsel.bookly.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.abs
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var viewModel: MainFragmentViewModel
     private var bestSellerAdapter: BestSellerAdapter = BestSellerAdapter()
     private var carouselAdapter: CarouselAdapter = CarouselAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainFragmentViewModel::class.java)
-    }
+    private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
