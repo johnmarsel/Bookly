@@ -2,7 +2,7 @@ package com.johnmarsel.bookly.api
 
 import com.johnmarsel.bookly.model.BestSellerItem
 import com.johnmarsel.bookly.model.CarouselItem
-import com.johnmarsel.bookly.model.recItem
+import com.johnmarsel.bookly.model.SimilarItem
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,7 +18,7 @@ interface EbookApi {
     suspend fun fetchBestSellers(): List<BestSellerItem>
 
     @GET("stellardiver/ebookdata/similar")
-    suspend fun fetchSimilar(): List<recItem>
+    suspend fun fetchSimilar(): List<SimilarItem>
 
     companion object {
 

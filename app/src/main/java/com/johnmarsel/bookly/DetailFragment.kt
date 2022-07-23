@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.*
-import com.johnmarsel.bookly.databinding.BestSellerItemBinding
 import com.johnmarsel.bookly.databinding.FragmentDetailBinding
 import com.johnmarsel.bookly.databinding.RecItemBinding
 import com.johnmarsel.bookly.model.BestSellerItem
-import com.johnmarsel.bookly.model.recItem
+import com.johnmarsel.bookly.model.SimilarItem
 
 const val BOOK_ID = "book_id"
 
@@ -32,6 +30,7 @@ class DetailFragment : Fragment() {
             bookId = it.getInt(BOOK_ID)
         }
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+        bookId?.let { viewModel.loadBestSeller(it) }
     }
 
     override fun onCreateView(
@@ -49,25 +48,21 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setUpToolbar()
-        viewModel.selectedBook.observe(
+        viewModel.bookLiveData.observe(
             viewLifecycleOwner
-        ) { bestsellers ->
-            var image: String
-            for (i in bestsellers) {
-                if (i.id == bookId) {
-                    binding.detailImage.loadImage(i.image)
-                    binding.selectedBookAuthor.text = i.author
-                    binding.selectedBookTitle.text = i.title
-                    binding.amount.text = i.rate.amount.toString()
-                    binding.score.text = i.rate.score.toString()
-                }
+        ) { bestseller ->
+            binding.apply {
+                detailImage.loadImage(bestseller.image)
+                selectedBookTitle.text = bestseller.title
+                selectedBookAuthor.text = bestseller.author
+                score.text = bestseller.rate.score.toString()
+                amount.text = bestseller.rate.amount.toString()
             }
-
         }
-        viewModel.similar.observe(
+        viewModel.similarBooks.observe(
             viewLifecycleOwner
-        ) { similar ->
-            adapter.submitList(similar)
+        ) { similarBooks ->
+            adapter.submitList(similarBooks.data)
         }
 
     }
@@ -87,7 +82,7 @@ class DetailFragment : Fragment() {
             itemView.setOnClickListener(this)
         }
 
-        fun bind(book: recItem) {
+        fun bind(book: SimilarItem) {
 
             binding.bookImage.loadImage(book.image)
         }
@@ -96,7 +91,7 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private inner class recAdapter: ListAdapter<recItem, RecHolder>(DiffCallback()) {
+    private inner class recAdapter: ListAdapter<SimilarItem, RecHolder>(DiffCallback()) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
             val binding = RecItemBinding.inflate(
@@ -113,12 +108,12 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private class DiffCallback: DiffUtil.ItemCallback<recItem>() {
+    private class DiffCallback: DiffUtil.ItemCallback<SimilarItem>() {
 
-        override fun areItemsTheSame(oldItem: recItem, newItem: recItem): Boolean {
+        override fun areItemsTheSame(oldItem: SimilarItem, newItem: SimilarItem): Boolean {
             return oldItem.id == newItem.id
         }
-        override fun areContentsTheSame(oldItem: recItem, newItem: recItem): Boolean {
+        override fun areContentsTheSame(oldItem: SimilarItem, newItem: SimilarItem): Boolean {
             return oldItem == newItem
         }
     }

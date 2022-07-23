@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -39,22 +41,20 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        binding.recyclerViewBestSeller.layoutManager = LinearLayoutManager(context)
-        binding.recyclerViewBestSeller.adapter = bestSellerAdapter
-        binding.viewPager2.adapter = carouselAdapter
 
+        binding.viewPager2.adapter = carouselAdapter
         binding.viewPager2.offscreenPageLimit = 3
         binding.viewPager2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-
         val compositePageTransformer = CompositePageTransformer()
         compositePageTransformer.addTransformer(MarginPageTransformer(30))
         compositePageTransformer.addTransformer { page, position ->
             val r = 1 - abs(position)
             page.scaleY = 0.85f + r * 0.15f
         }
-
         binding.viewPager2.setPageTransformer(compositePageTransformer)
 
+        binding.recyclerViewBestSeller.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewBestSeller.adapter = bestSellerAdapter
 
         return binding.root
     }
@@ -64,13 +64,22 @@ class MainFragment : Fragment() {
         setUpToolbar()
         viewModel.bestSellers.observe(
             viewLifecycleOwner
-        ) { bestSellers ->
-            bestSellerAdapter.submitList(bestSellers)
+        ) { result ->
+            binding.bestSellersTextView.isVisible = result is Resource.Success
+            binding.progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+            binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+
+            bestSellerAdapter.submitList(result.data)
+
         }
         viewModel.carousel.observe(
             viewLifecycleOwner
-        ) { carouselItems ->
-            carouselAdapter.submitList(carouselItems)
+        ) { result ->
+            binding.bestSellersTextView.isVisible = result is Resource.Success
+            binding.progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+            binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+
+            carouselAdapter.submitList(result.data)
         }
     }
 
