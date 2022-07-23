@@ -13,8 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.*
 import com.johnmarsel.bookly.R
 import com.johnmarsel.bookly.databinding.FragmentDetailBinding
-import com.johnmarsel.bookly.databinding.RecItemBinding
-import com.johnmarsel.bookly.model.BestSellerItem
+import com.johnmarsel.bookly.databinding.SimilarItemBinding
 import com.johnmarsel.bookly.model.SimilarItem
 import com.johnmarsel.bookly.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +25,7 @@ class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
     private var bookId: Int? = null
-    private var adapter: recAdapter = recAdapter()
+    private var adapter: SimilarAdapter = SimilarAdapter()
 
     private val viewModel: DetailViewModel by viewModels()
 
@@ -79,37 +78,27 @@ class DetailFragment : Fragment() {
         binding.toolbar.navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.x)
     }
 
-    private inner class RecHolder(private val binding: RecItemBinding)
-        : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
-
-        private lateinit var book: BestSellerItem
-
-        init {
-            itemView.setOnClickListener(this)
-        }
+    private inner class SimilarHolder(private val binding: SimilarItemBinding)
+        : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(book: SimilarItem) {
-
             binding.bookImage.loadImage(book.image)
-        }
-
-        override fun onClick(v: View) {
         }
     }
 
-    private inner class recAdapter: ListAdapter<SimilarItem, RecHolder>(DiffCallback()) {
+    private inner class SimilarAdapter: ListAdapter<SimilarItem, SimilarHolder>(DiffCallback()) {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecHolder {
-            val binding = RecItemBinding.inflate(
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarHolder {
+            val binding = SimilarItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
 
-            return RecHolder(binding)
+            return SimilarHolder(binding)
         }
 
-        override fun onBindViewHolder(holder: RecHolder, position: Int) {
+        override fun onBindViewHolder(holder: SimilarHolder, position: Int) {
             holder.bind(getItem(position))
         }
     }

@@ -25,7 +25,6 @@ import com.johnmarsel.bookly.detailpage.BOOK_ID
 import com.johnmarsel.bookly.util.Resource
 import com.johnmarsel.bookly.util.loadImage
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Math.abs
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -48,7 +47,7 @@ class MainFragment : Fragment() {
         val compositePageTransformer = CompositePageTransformer()
         compositePageTransformer.addTransformer(MarginPageTransformer(30))
         compositePageTransformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
+            val r = 1 - kotlin.math.abs(position)
             page.scaleY = 0.85f + r * 0.15f
         }
         binding.viewPager2.setPageTransformer(compositePageTransformer)
@@ -65,9 +64,11 @@ class MainFragment : Fragment() {
         viewModel.bestSellers.observe(
             viewLifecycleOwner
         ) { result ->
-            binding.bestSellersTextView.isVisible = result is Resource.Success
-            binding.progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
-            binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+            binding.apply {
+                bestSellersTextView.isVisible = result is Resource.Success
+                progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+                textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+            }
 
             bestSellerAdapter.submitList(result.data)
 
@@ -75,9 +76,11 @@ class MainFragment : Fragment() {
         viewModel.carousel.observe(
             viewLifecycleOwner
         ) { result ->
-            binding.bestSellersTextView.isVisible = result is Resource.Success
-            binding.progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
-            binding.textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+            binding.apply {
+                bestSellersTextView.isVisible = result is Resource.Success
+                progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+                textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+            }
 
             carouselAdapter.submitList(result.data)
         }
@@ -101,12 +104,14 @@ class MainFragment : Fragment() {
 
         fun bind(book: BestSellerItem) {
             this.book = book
-            binding.bookImage.loadImage(book.image)
-            binding.bookTitle.text = book.title
-            binding.bookAuthor.text = book.author
-            binding.bookPrice.text = "${book.price} €"
-            binding.bookRateScore.text = book.rate.score.toString()
-            binding.bookRateAmount.text = "(${book.rate.amount})"
+            binding.apply {
+                bookImage.loadImage(book.image)
+                bookTitle.text = book.title
+                bookAuthor.text = book.author
+                bookPrice.text = "${book.price} €"
+                bookRateScore.text = book.rate.score.toString()
+                bookRateAmount.text = "(${book.rate.amount})"
+            }
         }
 
         override fun onClick(v: View) {

@@ -5,5 +5,5 @@
         android:id="@+id/search_book"
         android:icon="@drawable/search"
         app:showAsAction="always"
-        android:title="search" />
+        android:title="@string/search" />
 </menu>

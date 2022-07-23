@@ -8,10 +8,9 @@ import com.johnmarsel.bookly.model.BestSellerItem
 import com.johnmarsel.bookly.model.CarouselItem
 import com.johnmarsel.bookly.model.SimilarItem
 import com.johnmarsel.bookly.util.Resource
+import com.johnmarsel.bookly.util.networkBoundResource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-
-private const val DATABASE_NAME = "database"
 
 class Repository @Inject constructor(
     private val ebookApi: EbookApi,

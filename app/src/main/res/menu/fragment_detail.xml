@@ -5,5 +5,5 @@
         android:id="@+id/cart"
         android:icon="@drawable/cart"
         app:showAsAction="always"
-        android:title="cart" />
+        android:title="@string/cart" />
 </menu>

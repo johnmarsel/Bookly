@@ -1,8 +1,5 @@
-package com.johnmarsel.bookly
+package com.johnmarsel.bookly.util
 
-import android.util.Log
-import androidx.lifecycle.asLiveData
-import com.johnmarsel.bookly.util.Resource
 import kotlinx.coroutines.flow.*
 
 inline fun <ResultType, RequestType> networkBoundResource(
@@ -15,8 +12,6 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
     val flow = if (shouldFetch(data)) {
         emit(Resource.Loading(data))
-
-        Log.d("fetch", "fetched")
 
         try {
             saveFetchResult(fetch())
