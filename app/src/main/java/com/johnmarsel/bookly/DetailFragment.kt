@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -55,8 +56,8 @@ class DetailFragment : Fragment() {
                 detailImage.loadImage(bestseller.image)
                 selectedBookTitle.text = bestseller.title
                 selectedBookAuthor.text = bestseller.author
+                button1.text = "${bestseller.price}€"
                 score.text = bestseller.rate.score.toString()
-                amount.text = bestseller.rate.amount.toString()
             }
         }
         viewModel.similarBooks.observe(
@@ -71,6 +72,7 @@ class DetailFragment : Fragment() {
         val navController = NavHostFragment.findNavController(this)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.x)
     }
 
     private inner class RecHolder(private val binding: RecItemBinding)

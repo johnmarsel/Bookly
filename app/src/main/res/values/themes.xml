@@ -3,7 +3,7 @@
     <style name="Theme.Bookly" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/background</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -17,4 +17,28 @@
     <style name="rounded_corner">
         <item name="cornerSize">10dp</item>
     </style>
+
+    <style name="LeftButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">@style/LeftButtonAppearance</item>
+    </style>
+    <style name="LeftButtonAppearance">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+    </style>
+
+    <style name="RightButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">@style/RightButtonAppearance</item>
+    </style>
+    <style name="RightButtonAppearance">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+    </style>
+
+
+
 </resources>

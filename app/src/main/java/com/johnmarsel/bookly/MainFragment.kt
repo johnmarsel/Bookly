@@ -84,6 +84,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpToolbar() {
+        binding.toolbar.setCollapseIcon(R.drawable.logo)
         val navController = NavHostFragment.findNavController(this)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
@@ -103,9 +104,9 @@ class MainFragment : Fragment() {
             binding.bookImage.loadImage(book.image)
             binding.bookTitle.text = book.title
             binding.bookAuthor.text = book.author
-            binding.bookPrice.text = book.price.toString()
+            binding.bookPrice.text = "${book.price} €"
             binding.bookRateScore.text = book.rate.score.toString()
-            binding.bookRateAmount.text = book.rate.amount.toString()
+            binding.bookRateAmount.text = "(${book.rate.amount})"
         }
 
         override fun onClick(v: View) {
